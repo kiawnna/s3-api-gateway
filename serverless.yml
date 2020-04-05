@@ -1,0 +1,56 @@
+service: apigateways3
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: prod
+  region: us-west-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:Get*
+        - s3:Put*
+        - s3:Delete*
+      Resource: 'arn:aws:s3:::kia-random-storage/*'
+    - Effect: Allow
+      Action:
+        - s3:List*
+      Resource: 'arn:aws:s3:::kia-random-storage'
+
+functions:
+  getimage:
+    handler: handler.handler
+    environment:
+      BUCKET: kia-random-storage
+      REGION: us-west-2
+    events:
+      - http:
+          path: /image/{imagename}
+          method: get
+  uploadimage:
+    handler: handler.handler1
+    environment:
+      BUCKET: kia-random-storage
+      REGION: us-west-2
+    events:
+      - http:
+          path: /image/{imagename}
+          method: post
+  deleteimage:
+    handler: handler.handler2
+    environment:
+      BUCKET: kia-random-storage
+      REGION: us-west-2
+    events:
+      - http:
+          path: /image/{imagename}
+          method: delete
+  listimages:
+    handler: handler.handler3
+    environment:
+      BUCKET: kia-random-storage
+      REGION: us-west-2
+    events:
+      - http:
+          path: /images
+          method: get
