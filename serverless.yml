@@ -45,7 +45,7 @@ functions:
       - http:
           path: /image/{imagename}
           method: delete
-  listimages:
+  listobjects:
     handler: handler.handler3
     environment:
       BUCKET: kia-random-storage

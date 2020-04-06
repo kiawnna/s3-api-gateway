@@ -4,6 +4,7 @@ import logging
 import base64
 from botocore.exceptions import ClientError
 import os
+import cgi
 
 BUCKET = os.environ['BUCKET']
 
@@ -39,7 +40,7 @@ def handler(event, context):
                 "body": "Image not found."
             }
             
-# Function uses a PUT request to upload an image into an S3 bucket given two events: img64 (the base64 code string that codes for an image) and ImageName (the
+# Function uses a POST request to upload an image into an S3 bucket given two events: img64 (the base64 code string that codes for an image) and ImageName (the
 # name of the image you want uploaded). Can use any online image to base64 coverter to get the base64 code, then can use POSTMAN to input RAW data as a JSON
 # onject with no spaces/indents/new lines.
 
