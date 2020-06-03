@@ -1,14 +1,14 @@
 import json
 import boto3
-import logging
 import base64
 from botocore.exceptions import ClientError
 import os
-import cgi
 
 BUCKET = os.environ['BUCKET']
 
-# Function uses a GET request to get an image from an S3 bucket via API Gateway and returns a string of base64 code (when requested throug the browser).
+# Function uses a GET request to get an image from an S3 bucket via API Gateway and returns a string of base64 code
+# (when requested through the browser).
+
 
 def handler(event, context):
     try:
@@ -40,14 +40,16 @@ def handler(event, context):
                 "body": "Image not found."
             }
             
-# Function uses a POST request to upload an image into an S3 bucket given two events: img64 (the base64 code string that codes for an image) and ImageName (the
-# name of the image you want uploaded). Can use any online image to base64 coverter to get the base64 code, then can use POSTMAN to input RAW data as a JSON
-# onject with no spaces/indents/new lines.
+# Function uses a POST request to upload an image into an S3 bucket given two events: img64 (the base64 code string
+# that codes for an image) and ImageName (the name of the image you want uploaded). Can use any online image to base64
+# converter to get the base64 code, then can use POSTMAN to input RAW data as a JSON object with no
+# spaces/indents/new lines.
 
-def handler1(event, context):      
+
+def handler1(event, context):
     print(event)
     key = event["pathParameters"]["imagename"]  # assign a name to your image and pass it through your API path.
-    body = json.loads(event["body"])            # sets the variable 'body' to the body of the event and turns the json string into a python object.
+    body = json.loads(event["body"])            # sets the variable 'body', turns the json string into a python object.
     s3 = boto3.resource(u's3')                  # invokes the 'resource' method and passes in the service name s3.
     bucket = s3.Bucket(u'kia-random-storage')   # names the bucket you want your image uploaded to.
     path_test = '/tmp/output'                   # temp path in lambda                    
@@ -57,9 +59,10 @@ def handler1(event, context):
     
     with open(path_test, 'wb') as data:
         data.write(img)
-        bucket.upload_file(path_test, key)      # Upload image directly inside bucket OR can use below line to Upload image inside folder of your s3 bucket.
-        #bucket.upload_file(path_test, 'FOLDERNAME-IN-YOUR-BUCKET /{}'.format(key))
-        
+        bucket.upload_file(path_test, key)      # Upload image directly inside bucket OR can use below line.
+        # bucket.upload_file(path_test, 'FOLDERNAME-IN-YOUR-BUCKET /{}'.format(key))
+        # Uploads image inside folder of your s3 bucket.
+
     return {
         "isBase64Encoded": True,
         'statusCode': 200, 
@@ -67,6 +70,7 @@ def handler1(event, context):
     }
 
 # Function uses a DELETE request to delete an image from an S3 bucket via API Gateway.
+
 
 def handler2(event, context):
     try:
@@ -93,6 +97,8 @@ def handler2(event, context):
             }
 
 # Function uses a GET request from the images path to get a list of all objects in an S3 bucket via API Gateway.
+
+
 def handler3(event, context):
     try:
         s3 = boto3.client('s3')

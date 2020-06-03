@@ -11,17 +11,17 @@ provider:
         - s3:Get*
         - s3:Put*
         - s3:Delete*
-      Resource: 'arn:aws:s3:::kia-random-storage/*'
+      Resource: 'arn:aws:s3:::your-bucket-name-here/*'
     - Effect: Allow
       Action:
         - s3:List*
-      Resource: 'arn:aws:s3:::kia-random-storage'
+      Resource: 'arn:aws:s3:::your-bucket-name-here'
 
 functions:
   getimage:
     handler: handler.handler
     environment:
-      BUCKET: kia-random-storage
+      BUCKET: your-bucket-name-here
       REGION: us-west-2
     events:
       - http:
@@ -30,7 +30,7 @@ functions:
   uploadimage:
     handler: handler.handler1
     environment:
-      BUCKET: kia-random-storage
+      BUCKET: your-bucket-name-here
       REGION: us-west-2
     events:
       - http:
@@ -39,7 +39,7 @@ functions:
   deleteimage:
     handler: handler.handler2
     environment:
-      BUCKET: kia-random-storage
+      BUCKET: your-bucket-name-here
       REGION: us-west-2
     events:
       - http:
@@ -48,7 +48,7 @@ functions:
   listobjects:
     handler: handler.handler3
     environment:
-      BUCKET: kia-random-storage
+      BUCKET: your-bucket-name-here
       REGION: us-west-2
     events:
       - http:
