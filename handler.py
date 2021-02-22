@@ -8,7 +8,7 @@ BUCKET = os.environ['BUCKET']
 
 # Function uses a GET request to get an image from an S3 bucket via API Gateway and returns a string of base64 code
 # (when requested through the browser).
-
+# Hello this is a test.
 
 def handler(event, context):
     try:
