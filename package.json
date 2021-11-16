@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Example demonstrates how to setup a simple Python function with OpenWhisk.",
   "dependencies": {
-    "aws-sdk": "^2.652.0",
+    "aws-sdk": "^2.814.0",
     "serverless-openwhisk": ">=0.13.0"
   }
 }
